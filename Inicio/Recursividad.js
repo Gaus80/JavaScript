@@ -12,7 +12,7 @@ function potencia(base, exponente) {
    // console.log(potencia(2, 3));
 //EJEMPLO 2
 
-   function encontrarSolucion(objetivo) {
+   function encontrarSolucion(objetivo) {//PARAMETRO
     function encontrar(actual, historia) {
         if (actual == objetivo) {
         return historia;
@@ -23,6 +23,6 @@ function potencia(base, exponente) {
         encontrar(actual * 3, `(${historia} * 3)`);
         }
         }
-        return encontrar(1, "1");
+        return encontrar(1, "1");//PASAR ARGUMENTOS FUNCION INTERNA
         }
         console.log(encontrarSolucion(26));
