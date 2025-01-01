@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background:linear-gradient(60deg,rgb(101, 60, 179),rgb(2, 39, 119));
+    background:linear-gradient(90deg,rgb(101, 60, 179),rgb(2, 39, 119));
     box-sizing: border-box;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
