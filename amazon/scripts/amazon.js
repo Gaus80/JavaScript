@@ -1,10 +1,12 @@
 //EL ARREGLO DE PRODUCTOS SE CARGA DESDE EL HTML
+import {cart} from '../data/cart.js';
+import {products} from '../data/products.js'
 
-let productsHTML ='';
+let productsHTML = '';
 
-products.forEach((product) =>{
- 
-    productsHTML += `
+products.forEach((product) => {
+
+  productsHTML += `
         <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -24,11 +26,11 @@ products.forEach((product) =>{
           </div>
 
           <div class="product-price">
-          $${(product.priceCents /100.).toFixed(2)}
+          $${(product.priceCents / 100.).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-value-${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -56,28 +58,36 @@ products.forEach((product) =>{
 });
 
 document.querySelector('.js-script-products').innerHTML = productsHTML;
-document.querySelectorAll('.js-button').forEach((button)=>{
-    button.addEventListener("click",()=>{
+document.querySelectorAll('.js-button').forEach((button, product) => {
+  button.addEventListener("click", () => {
 
-     const productId = button.dataset.productId;
-      let matchingItem ;
-
-      cart.forEach((item) =>{
-        if(item.productId === productId){
-          matchingItem = item;
-        }
-      });
-
-      if(matchingItem){
-        matchingItem.quantity += 1;
-      }else{
-        cart.push({
-          productId: productId ,
-          quantity: 1
-        })
+    const car = document.querySelector(".js-car-quantity");
+    const productId = button.dataset.productId;
+    let matchingItem;
+    
+    //AÑADIR ELEMENTOS AL CARRO
+    cart.forEach((item) => {
+      if (item.productId === productId) {
+        matchingItem = item;
       }
-       
-        
-        console.log(cart)
+    });
+
+    if (matchingItem) {
+      matchingItem.quantity += 1;
+    } else {
+      cart.push({
+        productId: productId,
+        quantity: 1
+      })
+    }
+    //MOSTRAR EN EL CARRO LA CANTIDAD DE ELEMENTOS
+    let carQuantity = 0;
+    cart.forEach((item) => {
+      carQuantity += item.quantity;
     })
+    car.textContent = carQuantity;
+    const cantidad = document.querySelector(`.js-value-${product.id}`).value;
+    console.log(cantidad)
+  })
 })
+
