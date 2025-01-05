@@ -1,5 +1,5 @@
 //EL ARREGLO DE PRODUCTOS SE CARGA DESDE EL HTML
-import {cart} from '../data/cart.js';
+import {cart,addToCart} from '../data/cart.js';
 import {products} from '../data/products.js'
 
 let productsHTML = '';
@@ -57,35 +57,33 @@ products.forEach((product) => {
         </div>`
 });
 
+
+
+   //MOSTRAR EN EL CARRO LA CANTIDAD DE ELEMENTOS
+
+function updateCarQuantity(){
+
+  const car = document.querySelector(".js-car-quantity");
+  let carQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    carQuantity += cartItem.quantity;
+  })
+
+  car.textContent = carQuantity;
+}
+
 document.querySelector('.js-script-products').innerHTML = productsHTML;
+
 document.querySelectorAll('.js-button').forEach((button, product) => {
   button.addEventListener("click", () => {
 
-    const car = document.querySelector(".js-car-quantity");
+   
     const productId = button.dataset.productId;
-    let matchingItem;
-    
-    //AÑADIR ELEMENTOS AL CARRO
-    cart.forEach((item) => {
-      if (item.productId === productId) {
-        matchingItem = item;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity += 1;
-    } else {
-      cart.push({
-        productId: productId,
-        quantity: 1
-      })
-    }
-    //MOSTRAR EN EL CARRO LA CANTIDAD DE ELEMENTOS
-    let carQuantity = 0;
-    cart.forEach((item) => {
-      carQuantity += item.quantity;
-    })
-    car.textContent = carQuantity;
+    addToCart(productId);
+    updateCarQuantity();
+ 
+   
     const cantidad = document.querySelector(`.js-value-${product.id}`).value;
     console.log(cantidad)
   })
