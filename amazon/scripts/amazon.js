@@ -70,24 +70,19 @@ function updateCarQuantity(){
     carQuantity += cartItem.quantity;
   })
 
-  car.textContent = carQuantity;
+  car.innerHTML = carQuantity;
 }
 
 document.querySelector('.js-script-products').innerHTML = productsHTML;
 
 document.querySelectorAll('.js-button').forEach((button) => {
   button.addEventListener("click", () => {
-
-    
     const productId = button.dataset.productId;
     const cantidadValor = document.querySelector(`.js-value-${productId}`).value;
     const cantidad = Number(cantidadValor);
     addToCart(productId,cantidad);
     updateCarQuantity();
- 
-   
-  
     console.log(cart)
-  })
-})
+  });
+});
 
