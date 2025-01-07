@@ -57,8 +57,6 @@ products.forEach((product) => {
         </div>`
 });
 
-
-
    //MOSTRAR EN EL CARRO LA CANTIDAD DE ELEMENTOS
 
 function updateCarQuantity(){
