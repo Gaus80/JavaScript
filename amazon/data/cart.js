@@ -16,13 +16,12 @@ export function loadFromStorage(){
       quantity:2,
       deliveryOptionId :'2'
   }];
-  }
-    
-}
+  }  
+};
 
 function saveLocalStorage(){
   localStorage.setItem('cart', JSON.stringify(cart))
-}
+};
 
 //AÑADIR ELEMENTOS AL CARRO
 
@@ -48,7 +47,7 @@ export function addToCart(productId,cantidad=1){
   }
 
   saveLocalStorage();
-}
+};
 
 export function removeFromCart(productId){
   const newCart = [];
@@ -62,7 +61,7 @@ export function removeFromCart(productId){
   cart = newCart;
 
   saveLocalStorage();
-} 
+}; 
 
 export function updateDeliveryOption (productId,deliveryOptionId){
   
@@ -75,4 +74,4 @@ export function updateDeliveryOption (productId,deliveryOptionId){
   });
 matchingItem.deliveryOptionId = deliveryOptionId;
 saveLocalStorage();
-}
+};
