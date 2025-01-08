@@ -140,5 +140,3 @@ export function renderOrderSummary(){
   })
 }
 
-
-console.log((43+47+48+46+45+43+43+44)/8)
