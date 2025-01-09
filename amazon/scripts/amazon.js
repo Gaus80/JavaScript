@@ -1,86 +1,92 @@
 //EL ARREGLO DE PRODUCTOS SE CARGA DESDE EL HTML
 import {cart,addToCart} from '../data/cart.js';
-import {products} from '../data/products.js'
-import { formatCurrency } from './utils/money.js';
-let productsHTML = '';
+import {products,loadProducts} from '../data/products.js'
 
-products.forEach((product) => {
 
-  productsHTML += `
-        <div class="product-container">
-          <div class="product-image-container">
-            <img class="product-image"
-              src="${product.image}">
-          </div>
+loadProducts(renderProducts);
 
-          <div class="product-name limit-text-to-2-lines">
-            ${product.name}
-          </div>
+function renderProducts(){
+  let productsHTML = '';
 
-          <div class="product-rating-container">
-            <img class="product-rating-stars"
-              src="${product.getStarsUrl()}">
-            <div class="product-rating-count link-primary">
-            ${product.rating.count}
+  products.forEach((product) => {
+
+    productsHTML += `
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image"
+                src="${product.image}">
             </div>
-          </div>
 
-          <div class="product-price">
-         ${product.getPrice()}
-          </div>
+            <div class="product-name limit-text-to-2-lines">
+              ${product.name}
+            </div>
 
-          <div class="product-quantity-container">
-            <select class="js-value-${product.id}">
-              <option selected value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
+            <div class="product-rating-container">
+              <img class="product-rating-stars"
+                src="${product.getStarsUrl()}">
+              <div class="product-rating-count link-primary">
+              ${product.rating.count}
+              </div>
+            </div>
 
-          <div class="product-spacer"></div>
+            <div class="product-price">
+          ${product.getPrice()}
+            </div>
 
-          <div class="added-to-cart">
-            <img src="images/icons/checkmark.png">
-            Added
-          </div>
+            <div class="product-quantity-container">
+              <select class="js-value-${product.id}">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            ${product.extraInfoHTML()} 
+            <div class="product-spacer"></div>
 
-          <button class="add-to-cart-button button-primary js-button" data-product-id ="${product.id}">
-            Add to Cart
-          </button>
-        </div>`
-});
+            <div class="added-to-cart">
+              <img src="images/icons/checkmark.png">
+              Added
+            </div>
 
-   //MOSTRAR EN EL CARRO LA CANTIDAD DE ELEMENTOS
-
-function updateCarQuantity(){
-
-  const car = document.querySelector(".js-car-quantity");
-  let carQuantity = 0;
-
-  cart.forEach((cartItem) => {
-    carQuantity += cartItem.quantity;
-  })
-
-  car.innerHTML = carQuantity;
-}
-
-document.querySelector('.js-script-products').innerHTML = productsHTML;
-
-document.querySelectorAll('.js-button').forEach((button) => {
-  button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
-    const cantidadValor = document.querySelector(`.js-value-${productId}`).value;
-    const cantidad = Number(cantidadValor);
-    addToCart(productId,cantidad);
-    updateCarQuantity();
-    console.log(cart)
+            <button class="add-to-cart-button button-primary js-button" data-product-id ="${product.id}">
+              Add to Cart
+            </button>
+          </div>`
   });
-});
+
+    //MOSTRAR EN EL CARRO LA CANTIDAD DE ELEMENTOS
+
+  function updateCarQuantity(){
+
+    const car = document.querySelector(".js-car-quantity");
+    let carQuantity = 0;
+
+    cart.forEach((cartItem) => {
+      carQuantity += cartItem.quantity;
+    })
+
+    car.innerHTML = carQuantity;
+  }
+
+  document.querySelector('.js-script-products').innerHTML = productsHTML;
+
+  document.querySelectorAll('.js-button').forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId;
+      const cantidadValor = document.querySelector(`.js-value-${productId}`).value;
+      const cantidad = Number(cantidadValor);
+      addToCart(productId,cantidad);
+      updateCarQuantity();
+      console.log(cart)
+    });
+  });
+
+};
 
